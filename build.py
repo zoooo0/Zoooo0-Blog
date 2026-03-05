@@ -482,11 +482,16 @@ def main() -> None:
     )
 
     # Add standalone page URL to each normal post (use PRIMARY slug)
+    # Extract path prefix from site_url for GitHub Pages subdirectory support
+    from urllib.parse import urlparse
+    parsed = urlparse(site_url)
+    path_prefix = parsed.path.rstrip("/")  # e.g. "/zoooo0-blog" or ""
+    
     for p in posts:
         if p.get("category") == "说说":
             continue
         primary = slug_primary(str(p["file"]))
-        p["url"] = f"/p/{primary}/"
+        p["url"] = f"{path_prefix}/p/{primary}/"
 
     OUTPUT_POSTS_JSON.write_text(json.dumps(posts, ensure_ascii=False, indent=2), encoding="utf-8")
 
