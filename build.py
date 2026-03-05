@@ -203,6 +203,7 @@ def write_redirect_page(out_path: Path, target_path: str, site_url: str) -> None
 def build_post_page(
     *,
     site_url: str,
+    path_prefix: str,
     post: Dict[str, Any],
     md_path: Path,
     out_path: Path,
@@ -265,34 +266,34 @@ def build_post_page(
 
 <nav id="sidebar">
   <div style="font-weight:900; font-size:1.6rem; color:var(--accent); margin-bottom:20px;">MENU</div>
-  <a href="/" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-house"></i> 首页</a>
-  <a href="/#status" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-feather"></i> 动态</a>
-  <a href="/#category" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-folder-open"></i> 分类</a>
-  <a href="/#archive" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-box-archive"></i> 归档</a>
-  <a href="/#guestbook.md" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-comment-dots"></i> 留言板</a>
+  <a href="{path_prefix}/" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-house"></i> 首页</a>
+  <a href="{path_prefix}/#status" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-feather"></i> 动态</a>
+  <a href="{path_prefix}/#category" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-folder-open"></i> 分类</a>
+  <a href="{path_prefix}/#archive" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-box-archive"></i> 归档</a>
+  <a href="{path_prefix}/#guestbook.md" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-comment-dots"></i> 留言板</a>
   <a href="https://status.nkx.moe" target="_blank" class="menu-link"><i class="fa-solid fa-server"></i> 站点状态</a>
 </nav>
 
 <div class="container">
   <header>
     <div class="brand-area">
-      <img src="https://img.i8-mc.cn/file/J0NJk8wH.jpeg" class="avatar" alt="avatar" onclick="location.href='/'">
+      <img src="https://img.i8-mc.cn/file/J0NJk8wH.jpeg" class="avatar" alt="avatar" onclick="location.href='{path_prefix}/'">
       <div style="display:flex; align-items:center;">
-        <span class="site-title" onclick="location.href='/'">聶.NET</span>
+        <span class="site-title" onclick="location.href='{path_prefix}/'">聶.NET</span>
         <i id="theme-icon" class="fa-solid fa-sun theme-icon" onclick="toggleTheme()"></i>
       </div>
     </div>
 
     <nav class="pc-nav">
-      <a href="/">首页</a>
+      <a href="{path_prefix}/">首页</a>
       <span class="nav-divider">/</span>
-      <a href="/#status">动态</a>
+      <a href="{path_prefix}/#status">动态</a>
       <span class="nav-divider">/</span>
-      <a href="/#category">分类</a>
+      <a href="{path_prefix}/#category">分类</a>
       <span class="nav-divider">/</span>
-      <a href="/#archive">归档</a>
+      <a href="{path_prefix}/#archive">归档</a>
       <span class="nav-divider">/</span>
-      <a href="/#guestbook.md">留言</a>
+      <a href="{path_prefix}/#guestbook.md">留言</a>
       <span class="nav-divider">/</span>
       <a href="https://status.nkx.moe" target="_blank">状态</a>
     </nav>
@@ -303,7 +304,7 @@ def build_post_page(
   </header>
 
   <div id="article-view">
-    <div class="back-btn" onclick="location.href='/'">← 返回列表</div>
+    <div class="back-btn" onclick="location.href='{path_prefix}/'">← 返回列表</div>
     <h1 class="article-title">{_html_escape(title)}</h1>
     <div class="article-meta">
       <span><i class="fa-regular fa-calendar"></i> {_html_escape(date)}</span>
@@ -430,7 +431,7 @@ def build_post_page(
     const postsEl = document.getElementById('total-posts');
     const wordsEl = document.getElementById('total-words');
     if (!postsEl && !wordsEl) return;
-    fetch('/posts.json?t=' + Date.now())
+    fetch('{path_prefix}/posts.json?t=' + Date.now())
       .then(r => r.ok ? r.json() : null)
       .then(data => {{
         if (!data || !Array.isArray(data)) return;
@@ -511,6 +512,7 @@ def main() -> None:
         # 1) Real page at primary URL
         build_post_page(
             site_url=site_url,
+            path_prefix=path_prefix,
             post=p,
             md_path=POSTS_DIR / filename,
             out_path=out_html,
