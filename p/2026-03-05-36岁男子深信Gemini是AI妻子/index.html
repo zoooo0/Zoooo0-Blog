@@ -266,34 +266,34 @@
 
 <nav id="sidebar">
   <div style="font-weight:900; font-size:1.6rem; color:var(--accent); margin-bottom:20px;">MENU</div>
-  <a href="/" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-house"></i> 首页</a>
-  <a href="/#status" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-feather"></i> 动态</a>
-  <a href="/#category" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-folder-open"></i> 分类</a>
-  <a href="/#archive" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-box-archive"></i> 归档</a>
-  <a href="/#guestbook.md" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-comment-dots"></i> 留言板</a>
+  <a href="/zoooo0-blog/" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-house"></i> 首页</a>
+  <a href="/zoooo0-blog/#status" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-feather"></i> 动态</a>
+  <a href="/zoooo0-blog/#category" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-folder-open"></i> 分类</a>
+  <a href="/zoooo0-blog/#archive" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-box-archive"></i> 归档</a>
+  <a href="/zoooo0-blog/#guestbook.md" onclick="toggleMenu(true)" class="menu-link"><i class="fa-solid fa-comment-dots"></i> 留言板</a>
   <a href="https://status.nkx.moe" target="_blank" class="menu-link"><i class="fa-solid fa-server"></i> 站点状态</a>
 </nav>
 
 <div class="container">
   <header>
     <div class="brand-area">
-      <img src="https://img.i8-mc.cn/file/J0NJk8wH.jpeg" class="avatar" alt="avatar" onclick="location.href='/'">
+      <img src="https://img.i8-mc.cn/file/J0NJk8wH.jpeg" class="avatar" alt="avatar" onclick="location.href='/zoooo0-blog/'">
       <div style="display:flex; align-items:center;">
-        <span class="site-title" onclick="location.href='/'">聶.NET</span>
+        <span class="site-title" onclick="location.href='/zoooo0-blog/'">聶.NET</span>
         <i id="theme-icon" class="fa-solid fa-sun theme-icon" onclick="toggleTheme()"></i>
       </div>
     </div>
 
     <nav class="pc-nav">
-      <a href="/">首页</a>
+      <a href="/zoooo0-blog/">首页</a>
       <span class="nav-divider">/</span>
-      <a href="/#status">动态</a>
+      <a href="/zoooo0-blog/#status">动态</a>
       <span class="nav-divider">/</span>
-      <a href="/#category">分类</a>
+      <a href="/zoooo0-blog/#category">分类</a>
       <span class="nav-divider">/</span>
-      <a href="/#archive">归档</a>
+      <a href="/zoooo0-blog/#archive">归档</a>
       <span class="nav-divider">/</span>
-      <a href="/#guestbook.md">留言</a>
+      <a href="/zoooo0-blog/#guestbook.md">留言</a>
       <span class="nav-divider">/</span>
       <a href="https://status.nkx.moe" target="_blank">状态</a>
     </nav>
@@ -304,7 +304,7 @@
   </header>
 
   <div id="article-view">
-    <div class="back-btn" onclick="location.href='/'">← 返回列表</div>
+    <div class="back-btn" onclick="location.href='/zoooo0-blog/'">← 返回列表</div>
     <h1 class="article-title">36岁男子深信Gemini是AI妻子，被教唆抢劫卡车，跟踪谷歌CEO，最后&quot;殉情&quot;自杀</h1>
     <div class="article-meta">
       <span><i class="fa-regular fa-calendar"></i> 2026-03-05</span>
@@ -507,7 +507,7 @@
     const postsEl = document.getElementById('total-posts');
     const wordsEl = document.getElementById('total-words');
     if (!postsEl && !wordsEl) return;
-    fetch('/posts.json?t=' + Date.now())
+    fetch('/zoooo0-blog/posts.json?t=' + Date.now())
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (!data || !Array.isArray(data)) return;
