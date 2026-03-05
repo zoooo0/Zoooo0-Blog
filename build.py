@@ -452,7 +452,7 @@ def build_post_page(
 
 
 def main() -> None:
-    site_url = os.environ.get("SITE_URL", "https://zoooo0.github.io/zoooo0-blog").rstrip("/")
+    site_url = os.environ.get("SITE_URL", "https://zoooo0.github.io/Zoooo0-Blog").rstrip("/")
 
     if not POSTS_DIR.exists():
         raise SystemExit(f"posts directory not found: {POSTS_DIR}")
