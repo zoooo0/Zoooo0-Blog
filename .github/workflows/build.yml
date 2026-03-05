@@ -35,7 +35,7 @@ jobs:
       - name: Generate posts.json, sitemap.xml and standalone pages
         shell: bash
         run: |
-          SITE_URL='https://zoooo0.github.io/Zoooo0-Blog' python3 build.py
+          SITE_URL='https://zoooo0.github.io/zoooo0-blog' python3 build.py
 
       - name: Commit and Push
         shell: bash
