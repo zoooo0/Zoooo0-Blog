@@ -1,387 +1,383 @@
 ---
-title: BestBlogs Issue #85：Harness Engineering（全文抓取）
+title: BestBlogs 第 85 期：Harness Engineering（全文翻译）
 date: 2026-03-09
 category: 技术
 tags: [AI周报]
 top: 11
 ---
 
-# BestBlogs Issue #85：Harness Engineering（全文抓取）
+# BestBlogs 第 85 期：Harness Engineering（全文翻译）
 
 > 来源：BestBlogs.dev Newsletter  
 > 原文链接：https://www.bestblogs.dev/newsletter/issue85
 
-BestBlogs Issue #85: Harness Engineering
-========================================
+大家好，欢迎来到 BestBlogs.dev 第 85 期。
 
-Hey there! Welcome to BestBlogs.dev Issue #85.
+贯穿本期内容的一个关键词是：**Harness（驭使 / 驾驭 / 编排）**。
 
-One keyword threads through this week's articles: harnessing. Essays published on martinfowler.com argue that developers' core work is shifting from writing code to building the harness agents depend on—specs, quality gates, and workflow guides. A Chinese podcast title puts it more bluntly: stop working, start setting up the office for your AI. OpenAI's team shipped a million lines of Codex-generated code over five months, not by using a stronger model, but by enforcing structured knowledge bases and rigid architectural constraints. As agents grow more capable, the real competitive edge isn't whether you use AI, but whether you can harness it.
+本周，martinfowler.com 上的两篇文章都在表达一个相近的判断：开发者的核心工作，正在从“亲手写代码”转向“为智能体搭建运行框架”——也就是规格说明、质量门禁、工作流指引，以及一整套让 Agent 可控、可复用、可演进的约束系统。中文播客里甚至说得更直接：**别再埋头干活了，先去给 AI 搭办公室。**
 
-On the BestBlogs.dev front, we've been going deep on AI coding to build out version 2.0. The focus is custom subscription sources and personalized feeds, so everyone can shape their reading experience around their own interests. I'm also developing Skills on top of open APIs for content search, deep reading, and daily operations—all aimed at truly harnessing the future of reading.
+OpenAI 团队在 5 个月里用 Codex 生成了 100 万行代码、完成了 1500 个 PR，靠的并不是更强的模型本身，而是结构化知识库、严格架构约束与持续的系统整顿。随着 Agent 变得越来越能干，真正拉开差距的，不再只是“你用不用 AI”，而是“你会不会驾驭 AI”。
 
-Here are 10 highlights worth your attention this week:
+对 BestBlogs.dev 来说，我们最近也一直在围绕 AI Coding 深挖，推进 2.0 版本的建设。重点方向是自定义订阅源和个性化信息流，让每个人都能按自己的兴趣塑造阅读体验。同时，我也在基于开放 API 开发一系列 Skills，用于内容搜索、深度阅读和日常操作——目标只有一个：真正把“未来的阅读方式”驯服到可用、好用、长期可用。
 
-🤖 GPT-5.4 lands as OpenAI's first model to unify reasoning, coding, native computer use, deep search, and million-token context in a single package. The standout is native computer use: the model reads screenshots, moves the mouse, and types on the keyboard, surpassing average human performance on OSWorld desktop tasks. A tool-search mechanism cuts agent token consumption by 47%, achieving high capability and low cost simultaneously. Meanwhile, GPT-5.3 Instant optimizes for feel over benchmarks, reducing web hallucination rates by 26.8%—a meaningful step toward making ChatGPT a reliable daily tool.
+下面是本周值得关注的 20 条内容。
 
-🏗️ Two essays on martinfowler.com form a cohesive argument this week. The first positions developers "on the loop": the core job becomes building and maintaining the harness that agents run on, with an agentic flywheel where agents not only execute tasks but continuously improve the harness itself. The second introduces a Design-First collaboration framework, aligning on capabilities, components, interactions, interfaces, and implementation before any code is generated, preventing architectural decisions from being silently embedded by AI.
+## 目录
 
-🎬 Pragmatic Engineer sat down with Boris Cherny, the creator of Claude Code, tracing its journey from an Anthropic side project to one of the fastest-growing developer tools. Boris ships 20–30 PRs daily, all 100% AI-generated, without editing a single line by hand. The conversation also reveals the internal debate at Anthropic over whether to release it publicly, how code review is evolving in the AI era, and the layered security architecture behind Claude Code.
+1. GPT-5.4 发布：OpenAI 首个真正统一的原生模型  
+2. OpenAI 连夜把默认模型换成 GPT-5.3：重点是“去油腻”  
+3. Qwen3.5 小尺寸模型来了  
+4. FireRed-OCR 开源：新一代端到端 SOTA  
+5. 开源大模型背后的架构逻辑  
+6. Boris Cherny 谈 Claude Code 的诞生  
+7. 软件工程中的 Humans and Agents in the Loop  
+8. 设计优先协作（Design-First Collaboration）  
+9. AI 编码的反思：从工具提效到范式迁移，还缺什么？  
+10. OpenClaw 上下文压缩机制深度拆解  
+11. 别再谈“10x 工程师”了：AI Agent 不是加速 SDLC，而是在终结它  
+12. 1500 个 PR、零人工编码：Codex 驱动百万行代码实践  
+13. 别工作了，先去给 AI 搭办公室  
+14. 设计流程已经死了：Jenny Wen 谈新的替代方式  
+15. Zapier 产品副总裁谈 800+ AI Agent 的组织实践  
+16. Nano Banana 2 深度解析：更快、更好玩、更高质量  
+17. AI 转型的四个阶段：个人、组织、产品与商业  
+18. 孟岩对谈李继刚：人在 AI 时代如何安放自己  
+19. 为什么 Cursor 已经死了？AI 海啸正在到来  
+20. 2028 全球智能危机：最终谁来买单？
 
-🔧 Alibaba's Tmall engineering team identifies the real bottleneck in enterprise AI coding: not agent execution capability, but accurately conveying complex task goals to AI. Their solution is a layered, unified expert knowledge base for systematic entropy reduction, driving a shift from tool-based efficiency to knowledge-driven intelligent development. OpenAI's Codex practice confirms the same insight: 1,500 PRs over five months with zero human coding, scaled through structured knowledge management, rigid architectural constraints, and periodic code entropy cleanup.
+---
 
-📁 Tencent Cloud published what may be the most thorough Chinese-language teardown of OpenClaw's context management, covering a three-tier defense system: preemptive pruning, LLM-based summarization, and post-overflow recovery, plus a cost analysis of each operation's impact on provider KV cache. Essential reading for anyone building long-session agents.
+## 1. GPT-5.4 发布：OpenAI 首个真正统一的原生模型
 
-⚡ Small models are rewriting performance expectations. Qwen3.5 releases four models from 0.8B to 9B parameters, all Apache 2.0, fine-tunable on consumer GPUs. The 4B stands out for multimodal and agent capabilities, while 9B punches close to much larger models. Xiaohongshu's open-source FireRed-OCR takes a different angle, turning Qwen3-VL-2B into a dedicated document parsing model through three-stage progressive training, scoring 92.94% on OmniDocBench v1.5 and ranking first among end-to-end solutions, with support for formulas, tables, and handwriting. Both projects prove the same point: targeted training strategies beat brute-force parameter scaling.
+**来源**：量子位  
+**原文**：https://www.bestblogs.dev/en/article/6f17468b
 
-🎨 Anthropic's head of design Jenny Wen shares a striking observation: the traditional design process is dead, not because designers chose to change, but because engineers shipping at AI speed forced the shift. Her time on polished mockups dropped from 60–70% to 30–40%, replaced by direct pairing with engineers and even editing code herself. Design work is splitting into two tracks: real-time collaboration supporting engineering execution, and vision design that sets direction 3 to 6 months out.
+OpenAI 的 GPT-5.4 首次把推理、编程、原生计算机操作、深度搜索和百万 token 上下文统一进了同一个模型里，而且并没有明显牺牲任何单项能力。
 
-💡 A three-hour conversation between Meng Yan and Li Jigang starts from one powerful premise: the industrial revolution took away physical labor, AI is taking away mental labor, what remains for humans is heart force. The dialogue extends into the nature of vector spaces, business models shifting from weaving nets to digging wells, and education transforming from pouring water to lighting fire. Two insights worth unpacking on their own: "Your feed is your fate" and "prompts have shapes."
+其中最突出的能力，是**原生计算机操作**：模型能读取屏幕截图、移动鼠标、敲击键盘，在 OSWorld 这类桌面任务基准上，已经超过普通人类平均水平。
 
-📈 Zapier's VP of Product shares first-hand lessons from running 800 AI agents internally, emphasizing that technology adoption and business transformation must be treated as separate efforts, and that leadership must personally use AI tools for transformation to stick. Insight Partners' co-founder goes further: autonomous agents are the real core of this wave, SaaS per-seat pricing will give way to consumption-based models, and white-collar job displacement will become an election issue within two years.
+另外，一个新的工具搜索机制把 Agent 场景下的 token 消耗降低了 47%，这很少见地实现了“能力更强、成本更低”同时成立。与此同时，GPT-5.3 Instant 也更注重使用体感而不是单纯跑分，把联网模式下的幻觉率降低了 26.8%，这对于把 ChatGPT 真正变成日常可靠工具，是很重要的一步。
 
-🌐 A thought experiment written from a 2028 vantage point deserves attention: white-collar job losses trigger consumer spending contraction, which triggers private credit defaults, which pressures mortgage markets, forming a negative feedback loop with no natural brake. Not a prediction, but a systematic framework for reasoning about left-tail risks. Worth a careful read for anyone thinking about AI's economic impact.
+![GPT-5.4 Released: OpenAI's First Unified Model, Truly Native](https://image.jido.dev/20260306013348_fb5421d8fc51628a29ab215487da1d12.webp)
 
-Hope this issue sparks some new ideas. Stay curious, and see you next week!
+---
 
-[Subscribe Now](https://www.bestblogs.dev/en#subscribe "Subscribe Now")
+## 2. OpenAI 连夜把默认模型换成 GPT-5.3：重点是“去油腻”
 
-Narrow
+**来源**：51CTO 技术栈  
+**原文**：https://www.bestblogs.dev/en/article/825a3674
 
-Table of Contents
+GPT-5.3 Instant 没有继续执着于 benchmark 冠军，而是把重点放在**真实使用体验**上：少一点说教式免责声明，更敏锐地理解用户意图，更顺滑地结合搜索能力。
 
-Contents
---------
+在联网场景下，它把幻觉率降低了 26.8%，这件事的意义其实很直接：不是模型更“炫”了，而是它更适合做一个你每天愿意用、也更敢信一点的工作助手。
 
-*   [1 GPT-5.4 Released: OpenAI's First Unified Model, Truly Native](https://www.bestblogs.dev/newsletter/issue85#6f17468b)
-*   [2 OpenAI Drops New Default GPT-5.3 Model Overnight! Focus on 'De-cringing'! Hands-on: Blazing Fast Instant Gratification! Enhanced Search! OpenAI Staff Reveal Model Switching Strategy](https://www.bestblogs.dev/newsletter/issue85#825a3674)
-*   [3 Qwen3.5 Small-Size Models Are Here!](https://www.bestblogs.dev/newsletter/issue85#a8c5578b)
-*   [4 FireRed-OCR Open Source Release: New End-to-End SOTA! Xiaohongshu Proposes Low-Cost Document Recognition Training Paradigm](https://www.bestblogs.dev/newsletter/issue85#44e28dc2)
-*   [5 The Architecture Behind Open-Source LLMs](https://www.bestblogs.dev/newsletter/issue85#e94961a3)
-*   [6 Building Claude Code with Boris Cherny](https://www.bestblogs.dev/newsletter/issue85#8f3d453)
-*   [7 Humans and Agents in Software Engineering Loops](https://www.bestblogs.dev/newsletter/issue85#03980cf2)
-*   [8 Design-First Collaboration](https://www.bestblogs.dev/newsletter/issue85#0c84d443)
-*   [9 Reflections on AI Coding: From Tool Efficiency to Paradigm Shift—What Are We Still Missing?](https://www.bestblogs.dev/newsletter/issue85#7088e92f)
-*   [10 Deep Dive into OpenClaw's Context Window Compression: All for Performance and Cost Savings](https://www.bestblogs.dev/newsletter/issue85#83d23d4f)
-*   [11 Stop Talking About '10x Developers': AI Agents Aren't Accelerating the SDLC, They're Ending It](https://www.bestblogs.dev/newsletter/issue85#fa13c8a0)
-*   [12 1,500 PRs, 0 Humans Coding: Codex-Driven Million-Line Internal Product Practice](https://www.bestblogs.dev/newsletter/issue85#997b2ba8)
-*   [13 Stop Working! Go Set Up an Office for AI!](https://www.bestblogs.dev/newsletter/issue85#d72dca9)
-*   [14 The design process is dead. Here’s what’s replacing it. | Jenny Wen (head of design at Claude)](https://www.bestblogs.dev/newsletter/issue85#516ace7)
-*   [15 Zapier VP of Product on Orchestrating 800+ AI Agents to Manage Everything](https://www.bestblogs.dev/newsletter/issue85#209e104)
-*   [16 Deep Dive into Nano Banana 2: Fun Use Cases, High Speed, and High Quality!](https://www.bestblogs.dev/newsletter/issue85#8dce015c)
-*   [17 Four Steps of AI Transformation: Individual, Organization, Product, and Business (Part 2)](https://www.bestblogs.dev/newsletter/issue85#b741844)
-*   [18 E45 Meng Yan in Conversation with Li Jigang: How Humans Find Their Place](https://www.bestblogs.dev/newsletter/issue85#17ad4f7)
-*   [19#445. 20VC: Why Cursor is Dead | The AI Tsunami is Coming, and You Need to be Ready](https://www.bestblogs.dev/newsletter/issue85#31911b6)
-*   [20 The 2028 Global Intelligence Crisis: Who Pays the Price?](https://www.bestblogs.dev/newsletter/issue85#6fedf503)
+![OpenAI Drops New Default GPT-5.3 Model Overnight!](https://image.jido.dev/20260306051541_a371b70.png)
 
-1
-[GPT-5.4 Released: OpenAI's First Unified Model, Truly Native](https://www.bestblogs.dev/en/article/6f17468b)
--------------------------------------------------------------------------------------------------------------
+---
 
-[量子位](https://www.bestblogs.dev/articles?sourceId=SOURCE_371003)[qbitai.com](https://www.qbitai.com/2026/03/384345.html)
+## 3. Qwen3.5 小尺寸模型来了
 
-03-06
+**来源**：通义大模型  
+**原文**：https://www.bestblogs.dev/en/article/a8c5578b
 
-4124 words · 17 min
+Qwen3.5 一次发布了 0.8B 到 9B 的四个小模型，全部采用 Apache 2.0 协议，并支持在消费级 GPU 上微调。
 
-94
+其中，4B 版本在多模态与 Agent 能力上尤其亮眼，9B 版本则已经逼近不少更大模型的表现。这类模型的意义，不只是“小而省”，而是它们开始真正适合垂直场景部署：成本可控、迭代更快、工程落地门槛更低。
 
-![Image 2: GPT-5.4 Released: OpenAI's First Unified Model, Truly Native](https://image.jido.dev/20260306013348_fb5421d8fc51628a29ab215487da1d12.webp)
+![Qwen3.5 Small-Size Models Are Here!](https://image.jido.dev/20260306052225_c568be5.png)
 
-OpenAI's GPT-5.4 marks the first time reasoning, coding, native computer use, deep web search, and million-token context have been unified in a single model — without sacrificing performance in any individual area. The standout capability is native computer operation: the model interprets screen state and executes mouse and keyboard actions, surpassing human average on desktop benchmarks. A new tool search mechanism also cuts token usage by 47% for Agent tasks, making this a rare case where capability gains and cost efficiency arrive together.
+---
 
-2
-[OpenAI Drops New Default GPT-5.3 Model Overnight! Focus on 'De-cringing'! Hands-on: Blazing Fast Instant Gratification! Enhanced Search! OpenAI Staff Reveal Model Switching Strategy](https://www.bestblogs.dev/en/article/825a3674)
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## 4. FireRed-OCR 开源：新一代端到端 SOTA
 
-[51CTO技术栈](https://www.bestblogs.dev/articles?sourceId=SOURCE_aef4e8)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MjM5ODI5Njc2MA==&mid=2655936771&idx=1&sn=e82b144c32165174666901de0676eb3e)
+**来源**：小红书技术 REDtech  
+**原文**：https://www.bestblogs.dev/en/article/44e28dc2
 
-03-04
+FireRed-OCR 通过三阶段渐进式训练，把 Qwen3-VL-2B 微调成了一个专门做文档解析的模型，在 OmniDocBench v1.5 上拿到 92.94%，位列端到端方案第一。
 
-3461 words · 14 min
+它支持公式、表格、手写内容等复杂文档元素，已经不是“玩具 OCR”，而是接近工业级效果。这说明一个很有意思的趋势：与其盲目堆参数，不如做有针对性的训练设计，小模型一样能在专门场景里打出高质量结果。
 
-93
+![FireRed-OCR Open Source Release](https://image.jido.dev/20260306051816_4418840.jpeg)
 
-![Image 3: OpenAI Drops New Default GPT-5.3 Model Overnight! Focus on 'De-cringing'! Hands-on: Blazing Fast Instant Gratification! Enhanced Search! OpenAI Staff Reveal Model Switching Strategy](https://image.jido.dev/20260306051541_a371b70.png)
+---
 
-GPT-5.3 Instant skips benchmark chasing and focuses on the user experience: fewer preachy disclaimers, sharper intent detection, and better search integration. With hallucination rates down 26.8% in connected mode, it's a meaningful step toward making ChatGPT a reliable daily tool.
+## 5. 开源大模型背后的架构逻辑
 
-3
-[Qwen3.5 Small-Size Models Are Here!](https://www.bestblogs.dev/en/article/a8c5578b)
-------------------------------------------------------------------------------------
+**来源**：ByteByteGo Newsletter  
+**原文**：https://www.bestblogs.dev/en/article/e94961a3
 
-[通义大模型](https://www.bestblogs.dev/articles?sourceId=SOURCE_2ce88a)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MzkxMTYyMTAzNA==&mid=2247499936&idx=1&sn=6e7da548b8562ff4e22abcf723af4fe0)
+这篇文章简明对比了六个主流开源大模型，梳理了它们在 MoE 设计、注意力机制取舍以及后训练策略上的差异。
 
-03-03
+它的价值不在于帮你背参数表，而在于提醒你：选模型时真正该看的，不是宣传词，而是这些底层架构决策会如何影响推理成本、吞吐效率、效果稳定性以及后续微调空间。
 
-174 words · 1 min
+对于现在正在做开源模型选型的人来说，这是篇很实用的“地图型文章”。
 
-93
+![The Architecture Behind Open-Source LLMs](https://image.jido.dev/20260302170628_0b745b95-60a3-498f-baf4-cfef00f0f9d4_3042x1626.png)
 
-![Image 4: Qwen3.5 Small-Size Models Are Here!](https://image.jido.dev/20260306052225_c568be5.png)
+---
 
-Qwen3.5 releases four compact models from 0.8B to 9B under Apache 2.0, fine-tunable on consumer GPUs. The 4B impresses for multimodal and Agent tasks; the 9B rivals larger models — both well-suited for cost-efficient vertical deployment.
+## 6. Boris Cherny 谈 Claude Code 的诞生
 
-4
-[FireRed-OCR Open Source Release: New End-to-End SOTA! Xiaohongshu Proposes Low-Cost Document Recognition Training Paradigm](https://www.bestblogs.dev/en/article/44e28dc2)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**来源**：The Pragmatic Engineer  
+**原文**：https://www.bestblogs.dev/en/video/8f3d453
 
-[小红书技术REDtech](https://www.bestblogs.dev/articles?sourceId=SOURCE_fb78bd)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=Mzg4OTc2MzczNg==&mid=2247494972&idx=1&sn=1c6a1be0908cbe25194a5256b1eec48a)
+Pragmatic Engineer 对谈了 Claude Code 的创造者 Boris Cherny，回顾了它如何从 Anthropic 内部的一个边缘项目，变成增长最快的开发者工具之一。
 
-03-02
+Boris 现在每天会提交 20 到 30 个 PR，而且全部由 AI 生成，自己一行代码都不手改。节目里还聊到一个很关键的话题：在 AI 时代，代码评审的意义正在改变，工程师真正重要的能力也正在被重写。
 
-4293 words · 18 min
+另外，Anthropic 内部曾对是否公开发布 Claude Code 有过争论，而 Claude Code 背后的分层安全架构也被详细提到。整段访谈很像是一份“AI 原生编程工作流”的现场口述史。
 
-93
+![Building Claude Code with Boris Cherny](https://image.jido.dev/20260305070617_hqdefault.jpg)
 
-![Image 5: FireRed-OCR Open Source Release: New End-to-End SOTA! Xiaohongshu Proposes Low-Cost Document Recognition Training Paradigm](https://image.jido.dev/20260306051816_4418840.jpeg)
+---
 
-FireRed-OCR fine-tunes Qwen3-VL-2B into a specialized document parser via three-stage progressive training, achieving 92.94% on OmniDocBench v1.5 — the top end-to-end result. It handles formulas, tables, and handwriting at industrial quality, and is fully open-source.
+## 7. 软件工程中的 Humans and Agents in the Loop
 
-5
-[The Architecture Behind Open-Source LLMs](https://www.bestblogs.dev/en/article/e94961a3)
------------------------------------------------------------------------------------------
+**来源**：Martin Fowler  
+**原文**：https://www.bestblogs.dev/en/article/03980cf2
 
-[ByteByteGo Newsletter](https://www.bestblogs.dev/articles?sourceId=SOURCE_996ae6)[blog.bytebytego.com](https://blog.bytebytego.com/p/the-architecture-behind-open-source)
+文章把 AI 协作中的开发者位置分成三类：
 
-03-02
+- **Human outside the loop**：人基本不介入，只做 vibe coding；
+- **Human inside the loop**：人对每个产出都逐项审核；
+- **Human on the loop**：人不再手工介入所有细节，而是负责构建和维护约束系统。
 
-1654 words · 7 min
+作者认为，真正合理的位置是第三种：开发者的核心工作，不再是亲手写每一段代码，而是搭建 Agent 运行所依赖的“缰绳系统”——规格、质量检查、流程说明，以及如何让 Agent 自己参与改进这些规则。
 
-92
+文章最后提出一个很重要的概念：**agentic flywheel**。Agent 不只是执行任务，还会持续评估并优化它所处的 harness。这比“AI 帮我写点代码”要深得多。
 
-![Image 6: The Architecture Behind Open-Source LLMs](https://image.jido.dev/20260302170628_0b745b95-60a3-498f-baf4-cfef00f0f9d4_3042x1626.png)
+![Humans and Agents in Software Engineering Loops](https://image.jido.dev/20260206060522_donkey-card.png)
 
-A concise comparative breakdown of six leading open-weight LLMs, covering MoE design, attention mechanism tradeoffs, and post-training strategies — with practical guidance on what to actually evaluate when choosing a model. Essential reading for engineers navigating the current open-source landscape.
+---
 
-6
-[Building Claude Code with Boris Cherny](https://www.bestblogs.dev/en/video/8f3d453)
-------------------------------------------------------------------------------------
+## 8. 设计优先协作（Design-First Collaboration）
 
-[The Pragmatic Engineer](https://www.bestblogs.dev/articles?sourceId=SOURCE_45e77651)[youtube.com](https://www.youtube.com/watch?v=julbw1JuAz0)
+**来源**：Martin Fowler  
+**原文**：https://www.bestblogs.dev/en/article/0c84d443
 
-03-04
+这篇文章指出了 AI 编码里一个经常被忽略的问题：**AI 会直接跳过设计阶段**，悄悄把大量架构决策埋进生成代码里，结果让代码评审变成一种疲惫的“逆向推理”。
 
-21313 words · 86 min
+作者提出的解决办法是 Design-First：在真正开始生成代码之前，先逐层对齐五个层面——能力、组件、交互、接口契约、实现。
 
-94
+这不是在增加流程主义，而是在降低认知负担。因为很多问题应该在抽象层被解决，而不是等落成代码后再从细节里反推架构。对常用 AI 编码工具的人来说，这是一套很值得吸收的方法论。
 
-![Image 7: Building Claude Code with Boris Cherny](https://image.jido.dev/20260305070617_hqdefault.jpg)
+---
 
-Pragmatic Engineer sits down with Boris Cherny, the creator of Claude Code, tracing its journey from an internal Anthropic side project to one of the fastest-growing developer tools available. Boris walks through his daily workflow — 20-30 PRs per day, 100% AI-generated, not a single line written by hand — and shares the internal debate over whether to release it at all. The conversation covers how code review is evolving in an AI-first environment, the layered security design behind Claude Code's architecture, and Boris's take on which engineering skills will matter most going forward. The printing press analogy running through the episode makes for a thought-provoking listen.
+## 9. AI 编码的反思：从工具提效到范式迁移，还缺什么？
 
-7
-[Humans and Agents in Software Engineering Loops](https://www.bestblogs.dev/en/article/03980cf2)
-------------------------------------------------------------------------------------------------
+**来源**：大淘宝技术  
+**原文**：https://www.bestblogs.dev/en/article/7088e92f
 
-[Martin Fowler](https://www.bestblogs.dev/articles?sourceId=SOURCE_913551)[martinfowler.com](https://martinfowler.com/articles/exploring-gen-ai/humans-and-agents.html)
+天猫工程团队的判断很到位：企业 AI Coding 的真正瓶颈，不是 Agent 执行力不够，而是**复杂任务目标无法准确传达给 AI**。
 
-03-04
+他们的解法是建立分层统一的专家知识库，用系统性的“降熵”方式，让 AI 更精准理解业务、工程结构与规则边界。由此，AI Coding 才能从“工具层的提效”走向“知识驱动的智能开发”。
 
-1603 words · 7 min
+这和 OpenAI 用 Codex 的内部实践，其实讲的是同一个道理：当系统规模上来之后，真正值钱的不是单次输出质量，而是能不能把知识、约束和架构长期沉淀下来。
 
-93
+![Reflections on AI Coding](https://image.jido.dev/20260302124143_b705d48.png)
 
-![Image 8: Humans and Agents in Software Engineering Loops](https://image.jido.dev/20260206060522_donkey-card.png)
+---
 
-This article offers a clear framework for thinking about the developer's role in an AI-assisted workflow, identifying three positions: humans outside the loop (vibe coding), humans inside the loop (manually reviewing every artifact), and humans on the loop. The author argues the third is the right place to be — where developers shift from writing code to building and maintaining the "harness" that guides agents: the specs, quality checks, and workflow instructions that shape what agents produce. The piece goes further to describe an "agentic flywheel," where agents not only execute tasks but continuously evaluate and improve the harness itself.
+## 10. OpenClaw 上下文压缩机制深度拆解
 
-8
-[Design-First Collaboration](https://www.bestblogs.dev/en/article/0c84d443)
----------------------------------------------------------------------------
+**来源**：腾讯云开发者  
+**原文**：https://www.bestblogs.dev/en/article/83d23d4f
 
-[Martin Fowler](https://www.bestblogs.dev/articles?sourceId=SOURCE_913551)[martinfowler.com](https://martinfowler.com/articles/reduce-friction-ai/design-first-collaboration.html)
+这可能是中文里对 OpenClaw 上下文管理机制最完整的一次拆解。
 
-03-03
+文章梳理了它的三层防线：
 
-2226 words · 9 min
+1. **预防性裁剪**  
+2. **基于 LLM 的总结压缩**  
+3. **溢出后的恢复机制**
 
-93
+同时还分析了不同操作对 Provider KV cache 成本的影响。对任何正在做长会话 Agent 的人来说，这篇文章都很值得看，因为它讲的不是抽象概念，而是“如何让系统真的跑得久、跑得稳、跑得起”。
 
-The author identifies a core problem with AI-assisted coding: AI skips the design phase entirely, silently embedding every architectural decision into generated code and turning code review into an exhausting exercise in reverse-engineering. The proposed solution, "Design-First," structures the collaboration into five sequential levels — capabilities, components, interactions, contracts, implementation — with no code until the design is agreed at each step. This isn't process ceremony; it's cognitive load management that forces decisions to happen at the right level of abstraction. For developers who regularly use AI coding assistants, this article offers a practical and well-reasoned collaboration framework worth adopting.
+![Deep Dive into OpenClaw's Context Window Compression](https://image.jido.dev/20260304033618_281b31f.jpeg)
 
-9
-[Reflections on AI Coding: From Tool Efficiency to Paradigm Shift—What Are We Still Missing?](https://www.bestblogs.dev/en/article/7088e92f)
---------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-[大淘宝技术](https://www.bestblogs.dev/articles?sourceId=SOURCE_efc2de)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MzAxNDEwNjk5OQ==&mid=2650542970&idx=1&sn=231a9b78e5c7e1054aa26e86556e8ed8)
+## 11. 别再谈“10x 工程师”了：AI Agent 不是加速 SDLC，而是在终结它
 
-03-02
+**来源**：InfoQ 中文  
+**原文**：https://www.bestblogs.dev/en/article/fa13c8a0
 
-7601 words · 31 min
+这篇文章的论点很锋利：AI Agent 不是在给传统软件开发生命周期踩油门，而是在直接改写、甚至终结它。
 
-92
+作者逐项拆解了 SDLC 的每个环节：需求变成迭代副产物，设计转向协同涌现，测试与代码同步生成，PR 审查逐渐变成旧时代的仪式，而可观测性则从被动看板变成主动反馈闭环。
 
-![Image 9: Reflections on AI Coding: From Tool Efficiency to Paradigm Shift—What Are We Still Missing?](https://image.jido.dev/20260302124143_b705d48.png)
+结论也很干脆：最终真正留下来的核心能力，可能只剩下两项——**上下文工程** 与 **可观测性**。这篇文章值得严肃对待，而不是当作标题党看过去。
 
-A thoughtful piece from Alibaba's Tmall tech team: the core bottleneck in enterprise AI Coding isn't agent execution, but accurately conveying complex task goals to AI. The solution is a layered, unified expert knowledge base that reduces information entropy and drives a shift from tool-level efficiency gains to a knowledge-driven intelligent development paradigm.
+![Stop Talking About '10x Developers'](https://image.jido.dev/20260302001659_9ebbfe7.png)
 
-10
-[Deep Dive into OpenClaw's Context Window Compression: All for Performance and Cost Savings](https://www.bestblogs.dev/en/article/83d23d4f)
--------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-[腾讯云开发者](https://www.bestblogs.dev/articles?sourceId=SOURCE_efac5b)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MzI2NDU4OTExOQ==&mid=2247694674&idx=1&sn=acae1fec749562f39219e2b13af9f065)
+## 12. 1500 个 PR、零人工编码：Codex 驱动百万行代码实践
 
-03-04
+**来源**：AI 前线  
+**原文**：https://www.bestblogs.dev/en/article/997b2ba8
 
-9892 words · 40 min
+OpenAI 工程团队在 5 个月里，用 Codex 生成了 100 万行代码、完成 1500 个 PR，而且没有一行代码是人工直接写出来的。
 
-92
+文章总结出它之所以能跑通的关键：
 
-![Image 10: Deep Dive into OpenClaw's Context Window Compression: All for Performance and Cost Savings](https://image.jido.dev/20260304033618_281b31f.jpeg)
+- 结构化知识管理  
+- 刚性架构约束  
+- Agent 可访问的可观测工具  
+- 周期性的代码熵清理
 
-A deep dive into OpenClaw's context management source code, covering its three-layer defense — preventive pruning, LLM-based compaction, and overflow recovery — plus a detailed analysis of how each operation affects Provider KV cache costs. One of the most thorough technical breakdowns of long-session context management for AI agents available in Chinese.
+这篇文章最有价值的地方，是它给出了一份“Agent 驱动开发如何规模化”的现实蓝图。它告诉你，重点不只是模型会不会写，而是整个工程系统是否允许 AI 持续、稳定、低失控地写。
 
-11
-[Stop Talking About '10x Developers': AI Agents Aren't Accelerating the SDLC, They're Ending It](https://www.bestblogs.dev/en/article/fa13c8a0)
------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-[InfoQ 中文](https://www.bestblogs.dev/articles?sourceId=SOURCE_8f2a9f)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2651276696&idx=2&sn=d8c3bd5cd6a2d3c96df4b87948831b24)
+## 13. 别工作了，先去给 AI 搭办公室
 
-03-01
+**来源**：AI 炼金术  
+**原文**：https://www.bestblogs.dev/en/podcast/d72dca9
 
-3384 words · 14 min
+两位 AI 创业者在这期播客里聊到一个很具时代感的工作流变化：在 Agent 时代，人的工作正在从“执行”转为“布置环境”。
 
-92
+他们提炼出的日常流程是：
 
-![Image 11: Stop Talking About '10x Developers': AI Agents Aren't Accelerating the SDLC, They're Ending It](https://image.jido.dev/20260302001659_9ebbfe7.png)
+**规划 → 运行 → 验证**
 
-This piece makes a sharp argument: AI agents aren't accelerating the software development lifecycle — they're ending it. The author works through each SDLC phase systematically: requirements become a byproduct of iteration, design emerges through collaboration, tests are generated alongside code, PR review becomes a legacy ritual, and observability evolves from a passive dashboard into the feedback loop driving the entire system. The conclusion is that only two core capabilities survive: context engineering and observability. A clearly argued piece worth engaging with seriously.
+真正稀缺的，不再是你敲代码有多快，而是你的判断带宽有多大、你为 AI 搭好的工作环境有多成熟。这期内容特别适合那些已经开始用 AI 编程，但还没完全意识到“岗位本质正在迁移”的人。
 
-12
-[1,500 PRs, 0 Humans Coding: Codex-Driven Million-Line Internal Product Practice](https://www.bestblogs.dev/en/article/997b2ba8)
---------------------------------------------------------------------------------------------------------------------------------
+![Stop Working! Go Set Up an Office for AI!](https://image.jido.dev/20251127045527_cef25284)
 
-[AI前线](https://www.bestblogs.dev/articles?sourceId=SOURCE_458cfe)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MzU1NDA4NjU2MA==&mid=2247657188&idx=2&sn=a68f1062d1f1e0faa8b076849cfb42e9)
+---
 
-03-01
+## 14. 设计流程已经死了：Jenny Wen 谈新的替代方式
 
-6416 words · 26 min
+**来源**：Lenny's Podcast  
+**原文**：https://www.bestblogs.dev/en/video/516ace7
 
-92
+Anthropic 设计负责人 Jenny Wen 讲了一个很有冲击力的判断：**传统设计流程已经死了**。
 
-OpenAI's engineering team used Codex to generate 1 million lines of code and 1,500 PRs over 5 months — with no human-written code. The article distills what made it work: structured knowledge management, rigid architectural constraints, agent-accessible observability tooling, and periodic entropy cleanup. A concise blueprint for scaling agent-driven development.
+不是设计师主动放弃它，而是因为工程师借助 AI 提升了交付速度，逼得设计流程必须重构。她自己的工作时间分配也发生了明显变化：过去 60% 到 70% 时间花在高保真稿和精修 mockup 上，现在只剩 30% 到 40%，更多时间转向与工程师直接结对，甚至自己下场改代码。
 
-13
-[Stop Working! Go Set Up an Office for AI!](https://www.bestblogs.dev/en/podcast/d72dca9)
------------------------------------------------------------------------------------------
+她认为，设计工作正在分化成两条线：
 
-[AI炼金术](https://www.bestblogs.dev/podcasts?sourceId=SOURCE_29b54a)[xiaoyuzhoufm.com](https://www.xiaoyuzhoufm.com/episode/69a6dc8ba374f44ffa797457)
+- 实时支持工程执行的协作型设计  
+- 面向未来 3 到 6 个月的方向型设计
 
-03-03
+这对设计师来说不是简单的“效率升级”，而是职业角色的重新定义。
 
-28034 words · 113 min
+![The design process is dead. Here’s what’s replacing it.](https://image.jido.dev/20260306045125_hqdefault.jpg)
 
-93
+---
 
-![Image 12: Stop Working! Go Set Up an Office for AI!](https://image.jido.dev/20251127045527_cef25284)
+## 15. Zapier 产品副总裁谈 800+ AI Agent 的组织实践
 
-Two AI founders share their engineering workflow in the Agent era: the job has shifted from writing code to building environments for AI, a three-step flow (plan → run → validate) is now the daily norm, and judgment bandwidth — not execution speed — is the new productivity ceiling. Worth listening to for anyone curious about what AI-first engineering actually looks like in practice.
+**来源**：Product School  
+**原文**：https://www.bestblogs.dev/en/video/209e104
 
-14
-[The design process is dead. Here’s what’s replacing it. | Jenny Wen (head of design at Claude)](https://www.bestblogs.dev/en/video/516ace7)
---------------------------------------------------------------------------------------------------------------------------------------------
+Zapier 的产品副总裁分享了他们在内部管理 800 多个 AI Agent 的第一手经验。
 
-[Lenny's Podcast](https://www.bestblogs.dev/articles?sourceId=SOURCE_8e0b51)[youtube.com](https://www.youtube.com/watch?v=eh8bcBIAAFo)
+最值得记住的一点是：**技术采用** 和 **业务转型** 是两件不同的事，不能混为一谈。组织层面的真正变化，必须由管理层亲自使用 AI 工具、亲自推动工作方式迁移，才可能落地。
 
-03-01
+在他看来，传统工作流和 Agent 工作流的本质差别，就在于后者具备了**推理与动态改道**能力。也就是说，AI 不再只是自动化脚本，而是在某种程度上开始承担“临场判断”。
 
-6060 words · 25 min
+![Zapier VP of Product on Orchestrating 800+ AI Agents](https://image.jido.dev/20260306021824_hqdefault.jpg)
 
-93
+---
 
-![Image 13: The design process is dead. Here’s what’s replacing it. | Jenny Wen (head of design at Claude)](https://image.jido.dev/20260306045125_hqdefault.jpg)
+## 16. Nano Banana 2 深度解析：更快、更好玩、更高质量
 
-Anthropic's head of design Jenny Wen shares her firsthand observations on how the design role is transforming in the AI era. Her core argument: the traditional "discover-diverge-converge" design process is dead — not because designers chose to abandon it, but because engineers shipping at AI-assisted speed forced the change. Design work is now splitting into two modes: real-time execution support alongside engineers, and shorter-horizon vision work spanning 3 to 6 months rather than years. She also details her own workflow shift — time spent on polished mockups has dropped from 60-70% to 30-40%, with far more time now spent on paired collaboration with engineers and direct code-level work. A valuable firsthand account for any designer navigating this transition.
+**来源**：阿真 Irene  
+**原文**：https://www.bestblogs.dev/en/article/8dce015c
 
-15
-[Zapier VP of Product on Orchestrating 800+ AI Agents to Manage Everything](https://www.bestblogs.dev/en/video/209e104)
------------------------------------------------------------------------------------------------------------------------
+这篇内容详细体验了 Gemini 3.1 Flash Image 的表现，结论是：文本渲染更准了，角色一致性更稳了，还支持了 1:4、1:8 这种极端长宽比。
 
-[Product School](https://www.bestblogs.dev/articles?sourceId=SOURCE_22ca64)[youtube.com](https://www.youtube.com/watch?v=05wREBRW-40)
+文章里还附带了大量现成可用的提示词，对于想快速做设计、做内容实验的人来说，参考价值很高。它代表的是另一条演进路线：不是一味追求“万能”，而是把生成式模型打磨成一个高频可用、可快速迭代的创作工具。
 
-03-03
+![Deep Dive into Nano Banana 2](https://image.jido.dev/20260304135841_b7cbc2e.png)
 
-11522 words · 47 min
+---
 
-92
+## 17. AI 转型的四个阶段：个人、组织、产品与商业
 
-![Image 14: Zapier VP of Product on Orchestrating 800+ AI Agents to Manage Everything](https://image.jido.dev/20260306021824_hqdefault.jpg)
+**来源**：AI 炼金术  
+**原文**：https://www.bestblogs.dev/en/podcast/b741844
 
-Zapier's VP of Product shares firsthand enterprise AI transformation practices: 800 internal AI agents, a clear distinction between adoption and transformation, and a strong argument that leadership must personally use AI tools for change to take hold. The core difference between traditional and agentic workflows? The ability to reason and dynamically reroute.
+这期播客指出，AI 产品最常见的错误，不是技术不够强，而是把 AI 生硬塞进功能里，却没有真正帮助用户完成具体工作。
 
-16
-[Deep Dive into Nano Banana 2: Fun Use Cases, High Speed, and High Quality!](https://www.bestblogs.dev/en/article/8dce015c)
----------------------------------------------------------------------------------------------------------------------------
+节目提出了一个三步框架：
 
-[阿真Irene](https://www.bestblogs.dev/articles?sourceId=SOURCE_581a19)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MzkxNzYzODgwNw==&mid=2247496575&idx=1&sn=b73502454851b048d618096de62d5c03)
+**拆解 → 重构 → 颠覆**
 
-03-04
+同时梳理了四类 AI 原生创业路径：
 
-13755 words · 56 min
+- 打开新市场  
+- 包装成熟技术  
+- 售卖基础设施  
+- 改造传统行业
 
-92
+整体很务实，讲的不是空泛愿景，而是产品和商业如何真正完成 AI 转型。
 
-![Image 15: Deep Dive into Nano Banana 2: Fun Use Cases, High Speed, and High Quality!](https://image.jido.dev/20260304135841_b7cbc2e.png)
+---
 
-A thorough hands-on review of Gemini 3.1 Flash Image: improved text rendering accuracy, significantly better character consistency, and new support for extreme aspect ratios like 1:4 and 1:8. Comes with extensive ready-to-use prompts — useful for anyone looking to iterate quickly on design and content creation at lower cost.
+## 18. 孟岩对谈李继刚：人在 AI 时代如何安放自己
 
-17
-[Four Steps of AI Transformation: Individual, Organization, Product, and Business (Part 2)](https://www.bestblogs.dev/en/podcast/b741844)
------------------------------------------------------------------------------------------------------------------------------------------
+**来源**：无人知晓  
+**原文**：https://www.bestblogs.dev/en/podcast/17ad4f7
 
-[AI炼金术](https://www.bestblogs.dev/podcasts?sourceId=SOURCE_29b54a)[xiaoyuzhoufm.com](https://www.xiaoyuzhoufm.com/episode/69a58d3186a265e92b788771)
+这场长达三小时的对谈，从一个非常有力量的命题展开：
 
-03-02
+**工业革命夺走了体力劳动，AI 正在夺走脑力劳动，那么人剩下的是什么？**
 
-2573 words · 11 min
+他们给出的答案是：**心力**。也就是意志、直觉、审美，以及一种难以完全被系统化的主体性。
 
-92
+对谈随后延伸到很多问题：向量世界的本质、商业模式从“织网”转向“打井”、人到底该借助 AI 放大自我，还是干脆退出思考，以及教育如何从“灌输知识”转向“点燃火种”。
 
-The biggest mistake in AI product development is adding AI to features instead of helping users complete real jobs. This podcast presents a three-step framework — deconstruct, redesign, disrupt — and maps out four AI-native startup paths: unlocking new markets, wrapping mature tech, selling infrastructure, and transforming traditional industries. Practical and grounded with real-world examples throughout.
+里面有两句话尤其值得单独拎出来想：
 
-18
-[E45 Meng Yan in Conversation with Li Jigang: How Humans Find Their Place](https://www.bestblogs.dev/en/podcast/17ad4f7)
-------------------------------------------------------------------------------------------------------------------------
+- **你的信息流，就是你的命运**  
+- **提示词是有形状的**
 
-[无人知晓](https://www.bestblogs.dev/podcasts?sourceId=SOURCE_33e2dd)[xiaoyuzhoufm.com](https://www.xiaoyuzhoufm.com/episode/69a64629de29766da93331ec)
+这不是一场技术节目，而更像是一场关于“人类还剩下什么”的时代讨论。
 
-03-03
+![E45 Meng Yan in Conversation with Li Jigang](https://image.jido.dev/20260303232418_440f92c.png)
 
-3805 words · 16 min
+---
 
-94
+## 19. 为什么 Cursor 已经死了？AI 海啸正在到来
 
-![Image 16: E45 Meng Yan in Conversation with Li Jigang: How Humans Find Their Place](https://image.jido.dev/20260303232418_440f92c.png)
+**来源**：跨国串门儿计划  
+**原文**：https://www.bestblogs.dev/en/podcast/31911b6
 
-This three-hour conversation between Meng Yan and Li Jigang centers on a deceptively simple premise: the Industrial Revolution took physical labor, AI is taking cognitive labor, and what remains for humans is what they call "heart force" — will, intuition, and aesthetic sensibility. From there, the conversation moves through the nature of the vector world, the shift in business models from "weaving networks" to "drilling deep wells," the fork between amplifying human distinctiveness through AI versus withdrawing from thinking altogether, and the evolution of education from knowledge-pouring to spark-finding. Li Jigang's two observations — "Your feed is your fate" and "prompts have shape" — are each worth sitting with independently. Worth listening to for anyone thinking seriously about what it means to be human in the AI era, beyond the technical discussion.
+Insight Partners 联合创始人 Jerry Murdock 的观点相当激进：真正的核心不是 Cursor 这类工具，而是**自主 Agent**。
 
-19
-[#445. 20VC: Why Cursor is Dead | The AI Tsunami is Coming, and You Need to be Ready](https://www.bestblogs.dev/en/podcast/31911b6)
------------------------------------------------------------------------------------------------------------------------------------
+他认为，这一波浪潮里，按席位收费的 SaaS 模式会逐渐让位于按消耗计费，而白领岗位被替代的问题，很可能在两年内就会变成政治议题。
 
-[跨国串门儿计划](https://www.bestblogs.dev/podcasts?sourceId=SOURCE_938310)[xiaoyuzhoufm.com](https://www.xiaoyuzhoufm.com/episode/69a5a5b5a22480add6b6be30)
+这段讨论未必全都正确，但它至少逼着你面对一个现实：AI 的冲击已经不只是“效率变高”，而是会直接改写软件、组织和就业市场的基本规则。
 
-03-02
+---
 
-1576 words · 7 min
+## 20. 2028 全球智能危机：最终谁来买单？
 
-92
+**来源**：Datawhale  
+**原文**：https://www.bestblogs.dev/en/article/6fedf503
 
-Insight Partners co-founder Jerry Murdock argues autonomous agents are the real core of this AI wave — tools like Cursor are already facing obsolescence, seat-based SaaS pricing will give way to consumption models, and white-collar displacement will become an election issue within two years.
+这篇文章用一个设想中的 2028 年视角，推演了一条 AI 冲击经济系统的左尾风险链条：
 
-20
-[The 2028 Global Intelligence Crisis: Who Pays the Price?](https://www.bestblogs.dev/en/article/6fedf503)
----------------------------------------------------------------------------------------------------------
+**白领失业 → 消费萎缩 → 私募信贷违约 → 房贷市场承压**
 
-[Datawhale](https://www.bestblogs.dev/articles?sourceId=SOURCE_4688eb)[mp.weixin.qq.com](https://mp.weixin.qq.com/s?__biz=MzIyNjM2MzQyNg==&mid=2247719943&idx=1&sn=ad3690fe18437d8254227099bea28bcd)
+这不是预言，而是一个相当系统的风险推演框架。它提醒我们，AI 的影响不只会落在工作台、IDE 和聊天窗口里，也可能穿透到更大的宏观经济结构中，并形成没有自然刹车的负反馈回路。
 
-02-27
+如果你关心 AI 的社会后果，而不只关心模型性能，这篇文章值得认真读一遍。
 
-12468 words · 50 min
+![The 2028 Global Intelligence Crisis: Who Pays the Price?](https://image.jido.dev/20260306050154_e7d5bf7.jpeg)
 
-92
+---
 
-![Image 17: The 2028 Global Intelligence Crisis: Who Pays the Price?](https://image.jido.dev/20260306050154_e7d5bf7.jpeg)
+## 结语
 
-A thought experiment written from a 2028 vantage point, tracing AI's economic left-tail risks: white-collar displacement → consumer spending contraction → private credit defaults → mortgage market stress — a feedback loop with no natural brake. Not a prediction, but a rigorous risk scenario worth reading carefully for anyone thinking about AI's macroeconomic implications.
+这一期最核心的启发，其实可以浓缩成一句话：
+
+**未来最重要的能力，不只是使用 AI，而是搭建能够稳定驾驭 AI 的系统。**
+
+不管是写代码、做设计、做产品，还是经营组织，很多岗位都在从“亲自执行”转向“构建框架、设定边界、维护质量、持续调优”。谁能把这套 harness 搭得更稳，谁就更有可能在下一轮变化里占到主动。
+
+如果这一期让你冒出了新的想法，那它就值了。
